@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "model_version": "horror-comedy-tfidf-dnn-v1",
+  "provenance": {
+    "source": "train_pool (60 % d'apprentissage après dédoublonnage)",
+    "selection_rule": "trois premières positions de chaque classe dans l'ordre figé du split, sans regarder les prédictions",
+    "purpose": "test technique de reproductibilité après rechargement",
+    "not_for_performance_evaluation": true
+  },
+  "probability_class": 1,
+  "decision_threshold": 0.5,
+  "samples": [
+    {
+      "clean_row_id": 1430,
+      "titre": "Amour fou",
+      "resume": "Berlin, the Romantic Era. Young poet Heinrich wishes to conquer the inevitability of death through love, yet is unable to convince his skeptical cousin Marie to join him in a suicide pact. It is whilst coming to terms with this refusal, ineffably distressed by his cousin's insensitivity to the depth of his feelings, that Heinrich meets Henriette, the wife of a business acquaintance. Heinrich's subsequent offer to the beguiling young woman at first holds scant appeal, that is until Henriette discovers she is suffering from a terminal illness",
+      "true_label": 0,
+      "expected_probability_class_1": 0.01403877418488264,
+      "expected_class": 0
+    },
+    {
+      "clean_row_id": 973,
+      "titre": "What to Expect When You're Expecting",
+      "resume": "Five couples' intertwined lives are turned upside down by the challenges of impending parenthood. Over the moon about starting a family, TV fitness guru Jules and dance show star Evan find that their high-octane celebrity lives don't stand a chance against the surprise demands of pregnancy. Baby-crazy author and advocate Wendy gets a taste of her own militant mommy advice when pregnancy hormones ravage her body; while Wendy's husband, Gary, struggles not to be outdone by his competitive alpha-Dad, who's expecting twins with his much younger trophy wife, Skyler. Photographer Holly is prepared to travel the globe to adopt a child, but her husband Alex isn't so sure, and tries to quiet his panic by attending a \"dudes\" support group, where new fathers get to tell it like it really is. And rival food truck chefs Rosie and Marco's surprise hook-up results in an unexpected quandary: what to do when your first child comes before your first date?",
+      "true_label": 0,
+      "expected_probability_class_1": 0.007979576475918293,
+      "expected_class": 0
+    },
+    {
+      "clean_row_id": 1228,
+      "titre": "Author! Author!",
+      "resume": "Playwright Travalian feels pulled limb from limb these days. He has a Broadway play in rehearsal and they want rewrites. His tramp wife is leaving him, leaving him as well with four children from her previous marriages plus his own son. And his lead actress wants to move in with him but isn't used to kids.",
+      "true_label": 0,
+      "expected_probability_class_1": 0.0068580457009375095,
+      "expected_class": 0
+    },
+    {
+      "clean_row_id": 1870,
+      "titre": "La belle captive",
+      "resume": "Walter is told by his boss, Sara, to deliver an urgent letter to Henri de Corinthe. On the way he finds a beautiful woman he had been eying in a nightclub, lying in the road, bound up. He takes her to a villa to get a doctor, and ends up being locked in a bedroom with her. While she is making love to him, he has visions of surrealistic images from Renè Magritte's paintings. In the morning, the girl, Marie-Ange, has vanished, the villa looks derelict, and his neck is bleeding. Was it all just a nightmare?",
+      "true_label": 1,
+      "expected_probability_class_1": 0.978790283203125,
+      "expected_class": 1
+    },
+    {
+      "clean_row_id": 318,
+      "titre": "Cthulhu",
+      "resume": "A Seattle history professor, drawn back to his estranged family on the Oregon coast to execute his late mother's estate, is reaquainted with his best friend from childhood, with whom he has a long-awaited tryst. Caught in an accelerating series of events, he discovers aspects of his father's New Age cult which take on a dangerous and apocalyptic significance.",
+      "true_label": 1,
+      "expected_probability_class_1": 0.953092098236084,
+      "expected_class": 1
+    },
+    {
+      "clean_row_id": 533,
+      "titre": "Freddy vs. Jason",
+      "resume": "It's been nearly ten years since Freddy Krueger terrorized people in the dreams, and the towns folk want to keep him erased from their memory. Freddy still has one more plan on getting back to Elm Street. He resurrects Jason Voorhees and sends him off to kill. The more bodies which fall to the ground, the stronger in which Freddy becomes. This is until, Freddy realizes that Jason isn't going to step aside easily, and must be taken down himself.",
+      "true_label": 1,
+      "expected_probability_class_1": 0.9838441014289856,
+      "expected_class": 1
+    }
+  ]
+}

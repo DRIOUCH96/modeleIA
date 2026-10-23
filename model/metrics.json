@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "model_version": "horror-comedy-tfidf-dnn-v1",
+  "task": "classification_binaire_resume_film",
+  "model_file": "model.keras",
+  "vectorizer_file": "vectorizer.joblib",
+  "reference_sample_file": "reference_sample.json",
+  "label_mapping": {
+    "0": "comédie",
+    "1": "horreur"
+  },
+  "probability_class": 1,
+  "decision_threshold": 0.5,
+  "selected_candidate": "keras_tuner_optimized_network",
+  "selected_hyperparameters": {
+    "num_layers": 2,
+    "units_per_layer": 128,
+    "dropout_rate": 0.5,
+    "l2_strength": 0.001,
+    "learning_rate": 0.001
+  },
+  "selected_seed": 11,
+  "epochs": 6,
+  "train_rows": 1407,
+  "test_rows": 469,
+  "tfidf_features": 10000,
+  "metrics": {
+    "accuracy": 0.8422174840085288,
+    "precision": 0.8786407766990292,
+    "recall": 0.7869565217391304,
+    "f1": 0.8302752293577982
+  },
+  "confusion_matrix_tn_fp_fn_tp": [
+    [
+      214,
+      25
+    ],
+    [
+      49,
+      181
+    ]
+  ],
+  "pedagogical_f1_margin": 0.03397451814041399,
+  "f1_margin_warning": "Pedagogical approximation requested by the brief; not an automatically valid confidence interval for F1.",
+  "production_holdout_evaluated": false,
+  "source_commit": "93a143c8fb63814841ba132e8daa1725433f0952",
+  "pre_test_commit": "fb49780e4b9eb6f5fd91fb42ffabc865603f6f26",
+  "exported_at": "2026-10-24T01:07:44+02:00"
+}
