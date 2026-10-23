@@ -18,6 +18,7 @@ Le nouveau notebook reproductible contient maintenant :
 - la validation interne issue des seuls 60 % d'apprentissage ;
 - le TF-IDF ajusté uniquement sur l'apprentissage interne, avec contrôles des dimensions et de la mémoire.
 - la comparaison sur cinq graines de la régression logistique, de Bayes naïf et d'un réseau dense de référence.
+- une recherche KerasTuner de 20 essais, optimisée sur le F1 de validation interne.
 
 ## Environnement prévu
 
