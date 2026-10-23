@@ -1,0 +1,41 @@
+{
+  "status": "frozen_before_final_test",
+  "frozen_on": "2026-10-24",
+  "selection_data": "validation_internal_only",
+  "candidate_scope": [
+    "keras_tuner_optimized_network",
+    "optuna_optimized_network"
+  ],
+  "model_seeds": [
+    11,
+    22,
+    33,
+    44,
+    55
+  ],
+  "primary_metric": "f1_for_class_1_horror",
+  "practical_tie_tolerance": 0.005,
+  "architecture_selection_rule": [
+    "If the difference between the two mean F1 scores is greater than 0.005, select the highest mean F1.",
+    "Otherwise, select the lowest sample standard deviation of F1 across the five seeds.",
+    "If the standard deviations are exactly equal, select the network with fewer trainable parameters.",
+    "If a tie still remains, select the candidate name first in alphabetical order."
+  ],
+  "export_seed_rule": [
+    "For the selected architecture, choose the seed whose validation F1 is closest to that architecture's mean F1.",
+    "If two seeds are equally close, choose the smallest numeric seed."
+  ],
+  "final_epoch_rule": "Use the median best validation epoch observed across the five seeds, rounded to the nearest existing integer value.",
+  "final_training_rule": [
+    "Refit a new TF-IDF vectorizer on the complete 60 percent training pool only.",
+    "Retrain the selected architecture on that complete training pool with the frozen seed and frozen epoch count.",
+    "Do not use final-test or production rows for fitting the vectorizer, the model, the threshold, or any hyperparameter."
+  ],
+  "final_test_policy": [
+    "Transform the final test with the frozen vectorizer exactly once.",
+    "Run one final metric campaign with the frozen model and threshold 0.50.",
+    "Do not alter preprocessing, architecture, seed, epoch count, threshold, or hyperparameters after seeing final-test results."
+  ],
+  "production_policy": "Keep production_holdout sealed and do not calculate evaluation metrics on it.",
+  "pedagogical_margin_policy": "Report the required approximation but do not use it as a model-selection rule."
+}
