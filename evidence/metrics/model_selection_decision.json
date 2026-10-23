@@ -1,0 +1,38 @@
+{
+  "decision_status": "frozen_before_final_test",
+  "final_test_opened": false,
+  "selection_rule_file": "config\\model_selection_rule.json",
+  "candidate_summaries": {
+    "keras_tuner_optimized_network": {
+      "runs": 5.0,
+      "accuracy_mean": 0.874468085106383,
+      "precision_mean": 0.8779835954611632,
+      "recall_mean": 0.8637681159420291,
+      "f1_mean": 0.8707090779766302,
+      "f1_std": 0.0052822330617871725,
+      "parameter_count": 1296769.0
+    },
+    "optuna_optimized_network": {
+      "runs": 5.0,
+      "accuracy_mean": 0.8631205673758865,
+      "precision_mean": 0.8298900850336862,
+      "recall_mean": 0.9086956521739129,
+      "f1_mean": 0.8666473150443057,
+      "f1_std": 0.012315036634898682,
+      "parameter_count": 648449.0
+    }
+  },
+  "mean_f1_gap": 0.00406176293232452,
+  "selection_reason": "practical_tie_resolved_by_stability_then_size",
+  "selected_candidate": "keras_tuner_optimized_network",
+  "selected_hyperparameters": {
+    "num_layers": 2,
+    "units_per_layer": 128,
+    "dropout_rate": 0.5,
+    "l2_strength": 0.001,
+    "learning_rate": 0.001
+  },
+  "selected_export_seed": 11,
+  "selected_epoch_count": 6,
+  "decision_threshold": 0.5
+}
