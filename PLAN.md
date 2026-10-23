@@ -167,7 +167,7 @@ Les versions seront fixées et installées dans `.venv` après libération de l'
 | WSL | WSL 2 configuré, distribution Ubuntu par défaut | Compatible avec Docker Desktop |
 | Azure CLI | Absente | Installer avant les opérations Azure ; le portail reste prévu pour les contrôles visuels |
 | GitHub CLI | Absente | Facultative ; Git et l'interface web suffisent |
-| Disque `C:` | 1,92 Gio libres sur 455 Gio (0,42 %) lors de la dernière vérification | **Toujours bloquant** : libérer au moins 10 Gio avant TensorFlow et Docker |
+| Disque `C:` | 74,53 Gio libres lors de la dernière vérification | Compatible avec l'environnement Python et les prochaines constructions Docker |
 | Mémoire | 15,7 Gio | Adaptée au projet local ; surveiller les conversions TF-IDF denses |
 
 ## 9. Risques et mesures
@@ -205,4 +205,4 @@ L'étape est validée lorsque :
 4. au moins 10 Gio sont libres sur `C:` ;
 5. `.venv` est créée, les trois ensembles de dépendances sont fixés, `pip check` passe, le noyau `Python (modeleIA)` est enregistré et un dépôt Git propre est initialisé.
 
-Au 2026-10-23, les points 1 à 3 sont réalisés. La `.venv` Python 3.11 est créée, `pip` y est mis à niveau, les fichiers de dépendances sont fixés, leur résolution commune réussit et Git est initialisé sur `main`. Le point 4 reste bloquant ; l'installation des bibliothèques et l'enregistrement du noyau du point 5 attendent la libération de l'espace disque.
+Au 2026-10-23, les cinq points sont réalisés : la `.venv` Python 3.11 est créée, `pip` y est mis à niveau, les dépendances sont installées sans conflit, Git est initialisé sur `main`, le noyau `Python (modeleIA)` est enregistré et les tests de fumée TF-IDF, scikit-learn, Keras et FastAPI réussissent.

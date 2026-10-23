@@ -9,7 +9,14 @@ Le protocole complet et le planning sont décrits dans `PLAN.md`.
 
 ## État actuel
 
-L'audit initial des briefs, du notebook, des données et de l'environnement Windows est terminé. L'environnement Python isolé peut être créé, mais l'installation des bibliothèques lourdes attend qu'au moins 10 Gio soient libres sur le disque `C:`.
+L'audit initial des briefs, du notebook, des données et de l'environnement Windows est terminé. L'environnement Python isolé est créé, les dépendances sont installées et le noyau `Python (modeleIA)` est enregistré.
+
+Le nouveau notebook reproductible contient maintenant :
+
+- l'audit et la suppression des doublons avant découpage ;
+- les lots stratifiés d'apprentissage, de test final et de production ;
+- la validation interne issue des seuls 60 % d'apprentissage ;
+- le TF-IDF ajusté uniquement sur l'apprentissage interne, avec contrôles des dimensions et de la mémoire.
 
 ## Environnement prévu
 
@@ -47,4 +54,4 @@ python -c "import tensorflow as tf; print(tf.__version__)"
 python -c "import sklearn, fastapi, keras_tuner, optuna; print('imports OK')"
 ```
 
-Ne pas exécuter ces installations tant que l'espace libre recommandé n'est pas disponible.
+`httpx2` est utilisé pour les tests FastAPI, conformément à la dépendance désormais recommandée par Starlette pour `TestClient`.
