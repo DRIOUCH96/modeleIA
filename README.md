@@ -17,6 +17,7 @@ Le nouveau notebook reproductible contient maintenant :
 - les lots stratifiés d'apprentissage, de test final et de production ;
 - la validation interne issue des seuls 60 % d'apprentissage ;
 - le TF-IDF ajusté uniquement sur l'apprentissage interne, avec contrôles des dimensions et de la mémoire.
+- la comparaison sur cinq graines de la régression logistique, de Bayes naïf et d'un réseau dense de référence.
 
 ## Environnement prévu
 
