@@ -1,0 +1,8 @@
+# Dépendances minimales nécessaires au chargement des artefacts et à l'API.
+numpy==2.4.6
+scikit-learn==1.9.1
+tensorflow-cpu==2.21.0
+joblib==1.6.0
+fastapi==0.161.1
+uvicorn==0.54.0
+pydantic==2.14.1

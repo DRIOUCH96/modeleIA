@@ -1,0 +1,27 @@
+# Environnement Python local
+.venv/
+
+# Python et Jupyter
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Outils de réglage et journaux locaux
+keras_tuner/
+optuna.db
+logs/
+tmp/
+
+# Secrets et configuration locale
+.env
+.env.*
+!.env.example
+*.secret
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/settings.json
