@@ -1,0 +1,54 @@
+{
+  "tool": "Optuna TPESampler",
+  "objective": "val_f1",
+  "trial_budget": 20,
+  "startup_trials": 5,
+  "epochs_per_trial_max": 15,
+  "batch_size": 64,
+  "seed": 2026,
+  "train_rows": 1125,
+  "validation_rows": 282,
+  "search_space": {
+    "num_layers": [
+      1,
+      2,
+      3
+    ],
+    "units_per_layer": [
+      32,
+      64,
+      128
+    ],
+    "dropout_rate": [
+      0.1,
+      0.3,
+      0.5
+    ],
+    "l2_strength": [
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "learning_rate": [
+      0.0001,
+      0.0003,
+      0.001,
+      0.003
+    ]
+  },
+  "best_trial_number": 13,
+  "best_hyperparameters": {
+    "num_layers": 3,
+    "units_per_layer": 64,
+    "dropout_rate": 0.5,
+    "l2_strength": 0.001,
+    "learning_rate": 0.003
+  },
+  "best_trial_val_f1": 0.8888888888888888,
+  "recomputed_validation_metrics": {
+    "accuracy": 0.8936170212765957,
+    "precision": 0.9090909090909091,
+    "recall": 0.8695652173913043,
+    "f1": 0.8888888888888888
+  }
+}
