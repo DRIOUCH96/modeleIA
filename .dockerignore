@@ -1,0 +1,14 @@
+**
+
+!Dockerfile
+!.dockerignore
+!requirements-api.txt
+
+!src/
+!src/**
+
+!model/
+!model/**
+
+src/**/__pycache__/
+src/**/*.py[cod]
