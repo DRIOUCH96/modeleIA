@@ -163,3 +163,65 @@ Contrôle des vraies métriques :
 
 La barrière lit les métriques existantes sans réévaluer le test final.
 Les seuils ne doivent pas être diminués pour masquer un échec.
+
+## Docker
+
+L’image contient uniquement le code d’inférence, les dépendances de
+`requirements-api.txt` et les quatre artefacts du dossier `model/`.
+L’entraînement, les notebooks, les données et pytest ne sont pas
+embarqués.
+
+Construction avec une version applicative correspondant au commit Git :
+
+```powershell
+$fullCommit = git rev-parse HEAD
+$shortCommit = git rev-parse --short HEAD
+$imageTag = "classifieur-films-api:$shortCommit"
+
+docker build `
+  --build-arg "APP_VERSION=$fullCommit" `
+  --tag $imageTag `
+  .
+```
+
+Lancement local :
+
+```powershell
+$containerName = "classifieur-films-api-test"
+
+docker run --detach `
+  --name $containerName `
+  --publish 8000:8000 `
+  $imageTag
+```
+
+Contrôles :
+
+```powershell
+docker inspect $containerName `
+  --format 'Etat={{.State.Status}} Sante={{.State.Health.Status}}'
+
+Invoke-RestMethod `
+  -Method Get `
+  -Uri "http://127.0.0.1:8000/health"
+```
+
+Arrêt et suppression du conteneur de test :
+
+```powershell
+docker stop $containerName
+docker rm $containerName
+```
+
+Résultats locaux observés pour l’image `bff4277` :
+
+- architecture : `linux/amd64` ;
+- taille du contenu : environ `474 MB` ;
+- utilisation disque affichée par Docker Desktop : environ `2,45 GB` ;
+- état du conteneur : `running` et `healthy` ;
+- résumé valide : HTTP `200` ;
+- texte vide : HTTP `422` ;
+- texte très court : HTTP `200`.
+
+La preuve locale est conservée dans
+`evidence/docker/local_container_verification.txt`.
