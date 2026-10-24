@@ -1,0 +1,5 @@
+# Seuils opérationnels fixés pour les contrôles de déploiement.
+# Ils ne doivent pas être abaissés pour masquer un échec.
+quality_gate:
+  minimum_f1: 0.80
+  minimum_test_rows: 400
