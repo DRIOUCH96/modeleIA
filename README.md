@@ -9,17 +9,29 @@ Le protocole complet et le planning sont décrits dans `PLAN.md`.
 
 ## État actuel
 
-L'audit initial des briefs, du notebook, des données et de l'environnement Windows est terminé. L'environnement Python isolé est créé, les dépendances sont installées et le noyau `Python (modeleIA)` est enregistré.
+Les huit parties du notebook sont terminées :
 
-Le nouveau notebook reproductible contient maintenant :
+- audit, dédoublonnage et découpage stratifié ;
+- TF-IDF sans fuite de données ;
+- comparaison des modèles sur cinq graines ;
+- optimisations KerasTuner et Optuna ;
+- sélection du modèle avant ouverture du test ;
+- campagne finale unique sur 469 exemples ;
+- sauvegarde et rechargement des artefacts.
 
-- l'audit et la suppression des doublons avant découpage ;
-- les lots stratifiés d'apprentissage, de test final et de production ;
-- la validation interne issue des seuls 60 % d'apprentissage ;
-- le TF-IDF ajusté uniquement sur l'apprentissage interne, avec contrôles des dimensions et de la mémoire.
-- la comparaison sur cinq graines de la régression logistique, de Bayes naïf et d'un réseau dense de référence.
-- une recherche KerasTuner de 20 essais, optimisée sur le F1 de validation interne.
-- une étude Optuna TPE de 20 essais utilisant le même espace, le même budget et la même validation.
+Le modèle final obtient sur le test :
+
+- accuracy : `0,84222` ;
+- précision pour la classe horreur : `0,87864` ;
+- rappel pour la classe horreur : `0,78696` ;
+- F1 : `0,83028`.
+
+Le dossier `model/` contient le réseau Keras, le vectoriseur TF-IDF,
+les métriques et six exemples de référence.
+
+L’API FastAPI expose `/health` et `/predict`. Les contrôles locaux
+comprennent actuellement sept tests pytest et une barrière qualité
+configurable.
 
 ## Environnement prévu
 
@@ -58,3 +70,96 @@ python -c "import sklearn, fastapi, keras_tuner, optuna; print('imports OK')"
 ```
 
 `httpx2` est utilisé pour les tests FastAPI, conformément à la dépendance désormais recommandée par Starlette pour `TestClient`.
+
+## Artefacts d’inférence
+
+Le dossier `model/` contient :
+
+- `model.keras` : architecture et poids du réseau ;
+- `vectorizer.joblib` : vocabulaire et poids IDF ;
+- `metrics.json` : version, seuil, classes et métriques ;
+- `reference_sample.json` : six exemples techniques issus de
+  l’apprentissage.
+
+Les exemples de référence vérifient la reproductibilité après
+rechargement. Ils ne constituent pas une mesure de généralisation.
+
+## Lancer l’API localement
+
+Dans un terminal PowerShell placé à la racine du projet :
+
+```powershell
+$env:APP_VERSION = (git rev-parse HEAD)
+.\.venv\Scripts\python.exe -m uvicorn src.main:app `
+  --host 127.0.0.1 `
+  --port 8000
+```
+
+Documentation interactive :
+
+- [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+État du service :
+
+- [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
+
+`model_version` identifie les artefacts appris. `app_version` identifie
+le commit Git de l’application exécutée.
+
+## Contrat de prédiction
+
+`POST /predict` attend :
+
+```json
+{
+  "text": "Une famille découvre une présence dans une maison abandonnée."
+}
+```
+
+La réponse contient la classe, son libellé, la version du modèle et une
+probabilité. Cette probabilité correspond toujours à la classe
+`1 = horreur`.
+
+Le texte doit contenir entre 1 et 10 000 caractères après validation.
+Les chaînes vides ou composées uniquement d’espaces sont refusées avec
+le code HTTP `422`.
+
+Le modèle ne connaît que les classes comédie et horreur. Une entrée hors
+domaine sera tout de même forcée dans l’une de ces classes ; une forte
+probabilité ne garantit donc pas que le texte appartient au domaine
+d’entraînement.
+
+## Tests locaux
+
+Exécuter toute la suite :
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -v
+```
+
+La suite contrôle :
+
+- les routes `/health` et `/predict` ;
+- les entrées valide, vide et très courte ;
+- le rechargement du réseau et du vectoriseur ;
+- la reproduction des six prédictions de référence ;
+- le passage des vraies métriques ;
+- le refus d’un faux fichier de métriques insuffisant.
+
+## Barrière qualité
+
+Les seuils sont définis dans `config/quality_gate.yaml` :
+
+- F1 minimal : `0.80` ;
+- taille minimale du test : `400`.
+
+Contrôle des vraies métriques :
+
+```powershell
+.\.venv\Scripts\python.exe .\scripts\check_quality.py `
+  --metrics .\model\metrics.json `
+  --config .\config\quality_gate.yaml
+```
+
+La barrière lit les métriques existantes sans réévaluer le test final.
+Les seuils ne doivent pas être diminués pour masquer un échec.
