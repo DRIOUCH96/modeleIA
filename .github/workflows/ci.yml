@@ -45,3 +45,78 @@ jobs:
           python scripts/check_quality.py
           --metrics model/metrics.json
           --config config/quality_gate.yaml
+  docker:
+    name: Construire et tester l image Docker
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v7
+
+      - name: Construire l image
+        run: |
+          docker build \
+            --build-arg APP_VERSION="${GITHUB_SHA}" \
+            --tag classifieur-films-api:ci \
+            .
+
+      - name: Demarrer le conteneur
+        run: |
+          docker run --detach \
+            --name classifieur-films-api-ci \
+            --publish 8000:8000 \
+            classifieur-films-api:ci
+
+      - name: Attendre et verifier le healthcheck
+        run: |
+          for attempt in {1..60}; do
+            if curl --fail --silent \
+              http://127.0.0.1:8000/health \
+              --output health.json; then
+              cat health.json
+              grep -q "\"app_version\":\"${GITHUB_SHA}\"" health.json
+              exit 0
+            fi
+
+            echo "API pas encore disponible : tentative ${attempt}/60"
+            sleep 2
+          done
+
+          docker logs classifieur-films-api-ci
+          exit 1
+
+      - name: Tester une prediction valide
+        run: |
+          status_code="$(curl --silent \
+            --output prediction.json \
+            --write-out "%{http_code}" \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --data '{"text":"Une famille visite une maison abandonnee ou des phenomenes terrifiants commencent."}' \
+            http://127.0.0.1:8000/predict)"
+
+          cat prediction.json
+          test "${status_code}" = "200"
+
+      - name: Tester le rejet d un texte vide
+        run: |
+          status_code="$(curl --silent \
+            --output invalid.json \
+            --write-out "%{http_code}" \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --data '{"text":"   "}' \
+            http://127.0.0.1:8000/predict)"
+
+          cat invalid.json
+          test "${status_code}" = "422"
+
+      - name: Afficher les logs en cas d echec
+        if: failure()
+        run: docker logs classifieur-films-api-ci
+
+      - name: Supprimer le conteneur
+        if: always()
+        run: docker rm --force classifieur-films-api-ci
