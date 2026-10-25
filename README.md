@@ -225,3 +225,24 @@ Résultats locaux observés pour l’image `bff4277` :
 
 La preuve locale est conservée dans
 `evidence/docker/local_container_verification.txt`.
+
+
+## CI/CD avec GitHub Actions
+
+Le workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) est exécuté lors des push et pull requests vers `main`, ainsi que manuellement.
+
+La chaîne comporte trois jobs dépendants :
+
+1. `tests` installe Python 3.11, vérifie les dépendances, exécute les tests et applique la barrière qualité.
+2. `docker` construit l’image, démarre un conteneur et contrôle `/health`, une prédiction valide et le rejet d’un texte vide.
+3. `publish` publie l’image dans Azure Container Registry uniquement depuis la branche `main`.
+
+Si les tests ou la barrière qualité échouent, les jobs suivants ne sont pas exécutés. Ce comportement a été vérifié avec un seuil F1 temporairement impossible, puis le seuil normal a été restauré.
+
+Chaque image publiée utilise le SHA Git complet comme tag. Cela permet d’associer précisément le code source, l’image et la version retournée par `/health`.
+
+Registre utilisé :
+
+```text
+adriouchmovieacr.azurecr.io
+```

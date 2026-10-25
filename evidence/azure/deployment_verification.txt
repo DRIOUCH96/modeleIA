@@ -1,0 +1,75 @@
+VALIDATION DU DEPLOIEMENT AZURE
+Date : 2026-10-25
+
+DEPOT ET CI
+Depot GitHub : DRIOUCH96/modeleIA
+Branche : main
+Workflow : CI
+Run GitHub Actions : 40143248993
+Statut final : success
+
+Jobs valides :
+- Tests et barriere qualite
+- Construire et tester l image Docker
+- Publier l image dans Azure Container Registry
+
+Barriere qualite :
+- F1 : 0.830275
+- Minimum F1 : 0.800000
+- Taille du test : 469
+- Minimum requis : 400
+- Resultat : OK
+
+AZURE CONTAINER REGISTRY
+Groupe de ressources : adriouchRG
+Region : francecentral
+Registre : adriouchmovieacr
+Serveur : adriouchmovieacr.azurecr.io
+SKU : Basic
+Compte administrateur : desactive
+
+Image :
+adriouchmovieacr.azurecr.io/classifieur-films-api:a13ec169a9e61b4fb671c5560e66d9a5ad11667f
+
+Digest :
+sha256:903f36cc6f3ddc436cc75505ed6641c80fa372675e3d446aab4151f6aeff4674
+
+Authentification :
+- Publication CI : jeton limite a classifieur-films-api avec content/read et content/write
+- Deploiement : jeton distinct limite a classifieur-films-api avec content/read
+- Aucun mot de passe enregistre dans Git
+- Secret de publication stocke dans GitHub Actions
+
+AZURE CONTAINER APPS
+Environnement : adriouch-modeleia-env
+Application : adriouch-modeleia-api
+Revision : adriouch-modeleia-api--2dwkro0
+Etat : Running
+CPU : 1.0
+Memoire : 2Gi
+Replicas : minimum 0, maximum 1
+
+URL :
+https://adriouch-modeleia-api.niceforest-29b9ca50.francecentral.azurecontainerapps.io
+
+CONTROLES DE PRODUCTION
+GET /health : HTTP 200
+
+Reponse :
+{
+  "status": "ok",
+  "model_loaded": true,
+  "model_version": "horror-comedy-tfidf-dnn-v1",
+  "app_version": "a13ec169a9e61b4fb671c5560e66d9a5ad11667f"
+}
+
+POST /predict avec un texte valide : HTTP 200
+Classe predite : 0
+Libelle predit : comedie
+Probabilite de la classe horreur : 0.41331690549850464
+
+POST /predict avec un texte vide : HTTP 422
+
+CONCLUSION
+La meme version Git est tracee dans GitHub Actions, le tag ACR et la reponse /health.
+Le modele, le vectoriseur, l API et la configuration Docker sont operationnels sur Azure.
