@@ -33,8 +33,14 @@ def test_health_expose_les_deux_versions(client):
         "model_version": "horror-comedy-tfidf-dnn-v1",
         "app_version": "test-app-version",
     }
+def test_hello_expose_le_message_et_la_version(client):
+    response = client.get("/hello")
 
-
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Bonjour depuis adriouch-modeleia-api",
+        "app_version": "test-app-version",
+    }
 def test_predict_accepte_un_resume_valide(client):
     response = client.post(
         "/predict",

@@ -9,9 +9,12 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 
 from src.inference import ModelBundle
-from src.schemas import HealthResponse, PredictionRequest, PredictionResponse
-
-
+from src.schemas import (
+    HealthResponse,
+    HelloResponse,
+    PredictionRequest,
+    PredictionResponse,
+)
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL_DIR = PROJECT_ROOT / "model"
 DEFAULT_APP_VERSION = "development"
@@ -55,6 +58,12 @@ def create_app(
             status="ok",
             model_loaded=bundle is not None,
             model_version=bundle.model_version,
+            app_version=request.app.state.app_version,
+        )
+    @application.get("/hello", response_model=HelloResponse)
+    def hello(request: Request) -> HelloResponse:
+        return HelloResponse(
+            message="Bonjour depuis adriouch-modeleia-api",
             app_version=request.app.state.app_version,
         )
 

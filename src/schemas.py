@@ -35,7 +35,11 @@ class HealthResponse(BaseModel):
     model_loaded: bool
     model_version: str
     app_version: str
+class HelloResponse(BaseModel):
+    """Réponse de la route utilisée pour démontrer une évolution."""
 
+    message: Literal["Bonjour depuis adriouch-modeleia-api"]
+    app_version: str
 
 class PredictionResponse(BaseModel):
     """Résultat d'une classification binaire."""
