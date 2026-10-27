@@ -1,0 +1,20 @@
+﻿VALIDATION FORMATEUR AVANT EVOLUTION
+
+Date : 2026-10-27
+Application : adriouch-modeleia-api
+Version validee : a13ec169a9e61b4fb671c5560e66d9a5ad11667f
+
+URL :
+https://adriouch-modeleia-api.niceforest-29b9ca50.francecentral.azurecontainerapps.io
+
+Controles valides :
+- GET /health : HTTP 200
+- Modele charge : oui
+- POST /predict avec un texte valide : HTTP 200
+- POST /predict avec un texte tres court : HTTP 200
+- POST /predict avec un texte vide : HTTP 422
+- Version exposee par /health conforme au commit deploye
+
+Decision :
+La version actuelle est validee avant l ajout de la route /hello
+et avant la demonstration du retour arriere.
