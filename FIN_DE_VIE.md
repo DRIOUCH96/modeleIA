@@ -1,4 +1,4 @@
-# Plan de fin de vie
+﻿# Plan de fin de vie
 
 > Avertissement : ce document contient des commandes destructives.
 > Elles ne doivent pas être exécutées pendant la rédaction du projet.
@@ -86,22 +86,39 @@ git push
 
 Les coûts doivent être relevés dans Azure Cost Management en filtrant :
 
-- abonnement utilisé par le projet ;
-- groupe `adriouchRG` ;
-- ressource `adriouchmovieacr` ;
-- ressource `adriouch-modeleia-api` ;
-- environnement `adriouch-modeleia-env` ;
-- période comprise entre leur création et leur retrait.
+- l’abonnement utilisé par le projet ;
+- le groupe `adriouchRG` ;
+- le tag `project=modeleia` ;
+- la période comprise entre la création et le retrait des ressources.
 
 Il faut distinguer :
 
-- estimation avant création ;
-- coût réellement visible ;
-- période couverte ;
-- délai éventuel de remontée des données ;
-- coût non isolable dans un groupe ou abonnement partagé.
+- l’estimation avant création ;
+- le coût réellement visible ;
+- la période couverte ;
+- le délai éventuel de remontée des données ;
+- les consommations non taguées ou impossibles à isoler.
 
 Aucun montant ne doit être inventé lorsque le portail ne l’affiche pas.
+
+### Relevé du 28 octobre 2026
+
+Le relevé a été généré le 28 octobre 2026 à 14:01 UTC.
+
+- coût réel exact : **0,487956505104 EUR** ;
+- coût arrondi : **0,49 EUR** ;
+- jours contenant des coûts : du 24 au 28 octobre 2026 ;
+- budget mensuel affiché : **8 EUR** ;
+- filtre : `ResourceGroupName=adriouchrg` et `project=modeleia`.
+
+Ce montant doit être actualisé une dernière fois avant la suppression des
+ressources. Le relevé final pourra évoluer à cause du délai de remontée des
+données Azure.
+
+Preuves conservées :
+
+- `evidence/azure/costs_2026-10-28.txt` ;
+- `evidence/azure/costs_project_modeleia_2026-10-28.xlsx`.
 
 ## 6. Fin de vie partielle
 

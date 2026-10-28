@@ -279,20 +279,36 @@ mêmes journées.
 
 ### Coûts
 
-Les coûts réels Azure ne sont pas encore renseignés. Ils devront être
-relevés dans Azure Cost Management en indiquant :
+Un relevé réel a été exporté depuis Azure Cost Management le
+28 octobre 2026 à 14:01 UTC.
 
-- la période couverte ;
-- les ressources filtrées ;
-- les éventuels délais de remontée ;
-- les coûts impossibles à isoler dans l’abonnement partagé.
+Périmètre du relevé :
 
-Aucun montant ne sera inventé si Azure ne fournit pas encore la donnée.
+- groupe de ressources : `adriouchRG` ;
+- filtre : `project=modeleia` ;
+- coût réel avec granularité quotidienne ;
+- période sélectionnée : octobre 2026 ;
+- jours contenant des coûts : du 24 au 28 octobre 2026.
+
+Résultats :
+
+- coût réel exact : **0,487956505104 EUR** ;
+- montant arrondi pour la présentation : **0,49 EUR** ;
+- budget mensuel affiché : **8 EUR**.
+
+Le relevé ne distingue pas les ressources, car l’export est regroupé par
+jour. Il peut également exclure les consommations non taguées ou ne prenant
+pas en charge les tags. Les données Azure peuvent être mises à jour avec
+retard.
+
+Preuves :
+
+- `evidence/azure/costs_2026-10-28.txt` ;
+- `evidence/azure/costs_project_modeleia_2026-10-28.xlsx`.
 
 ### Travaux restant à terminer
 
-- faire valider ou compléter les charges réelles ;
-- relever les coûts Azure ;
+- conserver et présenter le relevé réel des coûts Azure ;
 - finaliser les livrables C12 ;
 - préparer la fiche de synthèse et les questions d’oral ;
 - exécuter la vérification finale ;
