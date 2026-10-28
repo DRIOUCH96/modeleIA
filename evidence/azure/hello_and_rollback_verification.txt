@@ -1,0 +1,69 @@
+﻿EVOLUTION /HELLO ET RETOUR ARRIERE
+
+PHASE 1 - DEPLOIEMENT DE LA VERSION 2
+
+Date : 2026-10-28T00:46:39+01:00
+Run GitHub Actions : 40598995652
+Statut CI : success
+
+Version 1 de reference :
+- Commit : a13ec169a9e61b4fb671c5560e66d9a5ad11667f
+- Revision : adriouch-modeleia-api--2dwkro0
+
+Version 2 :
+- Commit : c8a90ccf16b99518e076d81ebbd57fbe029c9fbb
+- Image : adriouchmovieacr.azurecr.io/classifieur-films-api:c8a90ccf16b99518e076d81ebbd57fbe029c9fbb
+- Digest : sha256:8697de8b44b29b45f43c8fb3413ec2deb3af05aa982cb1042b897101ea361312
+- Revision : adriouch-modeleia-api--hello-c8a90cc
+- Etat Azure : Succeeded
+- Execution : Running
+
+Controles publics :
+- GET /health : HTTP 200
+- app_version : c8a90ccf16b99518e076d81ebbd57fbe029c9fbb
+- model_version : horror-comedy-tfidf-dnn-v1
+- GET /hello : HTTP 200
+- message : Bonjour depuis adriouch-modeleia-api
+- POST /predict : HTTP 200
+- classe predite : 1
+- libelle : horreur
+- probabilite classe 1 : 0.8337522149085999
+
+Conclusion de la phase 1 :
+La version 2 est deployee et la route /hello est disponible.
+Le modele et la route /predict restent operationnels.
+
+PHASE 2 - RETOUR ARRIERE
+A completer apres le redeploiement de la version 1.
+
+PHASE 2 - RETOUR ARRIERE TERMINE
+
+Date : 2026-10-28T01:09:37+01:00
+
+Version retiree :
+- Commit : c8a90ccf16b99518e076d81ebbd57fbe029c9fbb
+- Revision : adriouch-modeleia-api--hello-c8a90cc
+- Route specifique : GET /hello
+
+Version restauree :
+- Commit : a13ec169a9e61b4fb671c5560e66d9a5ad11667f
+- Image : adriouchmovieacr.azurecr.io/classifieur-films-api:a13ec169a9e61b4fb671c5560e66d9a5ad11667f
+- Digest : sha256:903f36cc6f3ddc436cc75505ed6641c80fa372675e3d446aab4151f6aeff4674
+- Revision : adriouch-modeleia-api--rollback-a13ec16
+- Etat : Succeeded
+- Execution : Running
+
+Controles apres retour arriere :
+- GET /health : HTTP 200
+- app_version : a13ec169a9e61b4fb671c5560e66d9a5ad11667f
+- model_version : horror-comedy-tfidf-dnn-v1
+- GET /hello : HTTP 404
+- POST /predict : HTTP 200
+- classe predite : 1
+- libelle : horreur
+- probabilite classe 1 : 0.8337522149085999
+
+Conclusion :
+Le retour arriere est reussi.
+L ancienne image immuable a ete redeployee par son tag Git.
+La route /hello a disparu et les routes historiques restent operationnelles.

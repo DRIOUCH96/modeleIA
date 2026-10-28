@@ -30,7 +30,7 @@ Le dossier `model/` contient le réseau Keras, le vectoriseur TF-IDF,
 les métriques et six exemples de référence.
 
 L’API FastAPI expose `/health` et `/predict`. Les contrôles locaux
-comprennent actuellement sept tests pytest et une barrière qualité
+comprennent actuellement huit tests pytest et une barrière qualité
 configurable.
 
 ## Environnement prévu
@@ -139,7 +139,7 @@ Exécuter toute la suite :
 
 La suite contrôle :
 
-- les routes `/health` et `/predict` ;
+- les routes `/health` , `/hello` et `/predict` ;
 - les entrées valide, vide et très courte ;
 - le rechargement du réseau et du vectoriseur ;
 - la reproduction des six prédictions de référence ;
@@ -226,7 +226,6 @@ Résultats locaux observés pour l’image `bff4277` :
 La preuve locale est conservée dans
 `evidence/docker/local_container_verification.txt`.
 
-
 ## CI/CD avec GitHub Actions
 
 Le workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) est exécuté lors des push et pull requests vers `main`, ainsi que manuellement.
@@ -245,4 +244,13 @@ Registre utilisé :
 
 ```text
 adriouchmovieacr.azurecr.io
+```
+
+
+## Déploiement Azure Container Apps
+
+L’image est stockée dans Azure Container Registry :
+
+```text
+adriouchmovieacr.azurecr.io/classifieur-films-api
 ```
